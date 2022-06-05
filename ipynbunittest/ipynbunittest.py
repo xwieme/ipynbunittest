@@ -142,11 +142,11 @@ def run_unit_tests(test_filepaths: list, notebook: str, skiptests: list = None, 
             os.remove(setup_data['code_filename'])
 
 
-def all(path):
+def setup_all(path):
     """
     Test all notebooks which are present in the directory and subdirectories
     that contain a corresponding test file. The test filename is assumed to be
-    the same as the corresponding notebook with the prefix test_
+    the same as the corresponding notebook with the prefix test_ and located in ./tests
 
     :param path: path from where this function is called
     """
@@ -176,10 +176,24 @@ def all(path):
             # Change back to notebook directory
             os.chdir(setup_data['notebook_dir'])
 
+    return setup_data_list
+
+
+def run_all(path):
+    """
+    Test all notebooks which are present in the directory and subdirectories
+    that contain a corresponding test file. The test filename is assumed to be
+    the same as the corresponding notebook with the prefix test_ and located in ./tests
+
+    :param path: path from where this function is called
+    """
+
+    setup_data_list = setup_all(path)
+
     # Run all unit tests
     os.system("pytest -vx")
 
     # Clean temp files
-    os.chdir(test_dir)
+    os.chdir('./tests')
     for setup_data in setup_data_list:
         os.remove(setup_data['code_filename'])
