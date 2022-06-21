@@ -1,7 +1,8 @@
 import setuptools 
 
+
 setuptools.setup(
-    name='ipynbtest',
+    name='ipynbunittest',
     version='0.0.1',
     author='xwieme',
     description='Unit test in jupyter notebook',
